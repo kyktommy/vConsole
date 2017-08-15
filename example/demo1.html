@@ -11,7 +11,9 @@
   <script src="./lib/zepto.touch.min.js"></script>
 
   <!-- 引入vConsole的JS库 -->
-  <script src="../dist/vconsole.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react-dom.min.js"></script>
+  <script src="../dist/react-vconsole.min.js"></script>
   
 </head>
 <body ontouchstart>
@@ -29,25 +31,28 @@
     <a href="javascript:;" class="weui_btn weui_btn_default js_btn_log_obj">打印Object</a>
   </div>
   <div class="weui_toptips weui_notice" id="js_tips">已打印log</div>
+  <div id="container"></div>
 </body>
 
 <script>
-// vConsole完成初始化后将调用ready()的回调函数
-vConsole.ready(function() {
-  console.info('欢迎使用 vConsole。vConsole 是一个由微信公众平台前端团队研发的 Web 前端开发者面板，可用于展示 console 日志，方便开发、调试。');
-});
-
-$('.js_btn_log').on('tap', function(e) {
-  var type = $(this).data('type');
-  console[type](type); // 例如，console.log(type)
-  showTips();
-});
-$('.js_btn_log_obj').on('tap', function(e) {
-  console.log({
-    'foo': 'bar',
-    'tips': 'JS对象会转为JSON字符串输出'
+  
+$(document).ready(function() {
+  
+  ReactDOM.render(React.createElement(VConsole, null), document.getElementById('container'));
+  
+  $('.js_btn_log').on('tap', function(e) {
+    var type = $(this).data('type');
+    console[type](type); // 例如，console.log(type)
+    showTips();
   });
-  showTips();
+  
+  $('.js_btn_log_obj').on('tap', function(e) {
+    console.log({
+      'foo': 'bar',
+      'tips': 'JS对象会转为JSON字符串输出'
+    });
+    showTips();
+  });
 });
 
 // 用于页面内展示顶部tips

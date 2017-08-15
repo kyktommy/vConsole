@@ -5,7 +5,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   devtool: false,
   entry: {
-    vconsole : './src/vconsole.js'
+    'react-vconsole': './src/react-vconsole.js'
   },
   output: {
     path: './dist',
